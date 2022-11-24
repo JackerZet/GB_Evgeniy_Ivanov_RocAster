@@ -1,21 +1,43 @@
-﻿using Logic.Interfaces;
+﻿using Logic.Bullets;
+using Logic.Infrastructure;
+using Logic.Interfaces;
+using ScriptableObjects;
+using System;
 using UnityEngine;
 
 namespace BehaviorRealizations
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class Bullet : MonoBehaviour, IShootable
+    public abstract class Bullet : MonoBehaviour, IHasMoving, IHasHealthChanger, IInitable
     {
-        [field:SerializeField] public float Speed { get; private set; }
+        [SerializeField] private BulletStats stats;
+        
+        protected IMovable _shootable;
+        protected IHealthChanger _healthChanger;
 
-        private Rigidbody2D _rigidbody;
+        public IMovable Movable => _shootable;
+        public IHealthChanger HealthChanger => _healthChanger;
+
+        protected Type[] _typesToIgnore;
         public void Init()
         {
-            _rigidbody = GetComponent<Rigidbody2D>();
+            SetTypeToIgnore();
+           
+            _healthChanger = new BulletHitting(stats.Damage, _typesToIgnore);
+            _shootable = new BulletFlying(GetComponent<Rigidbody2D>(), stats.Speed);
         }
-        public void Fly(Vector2 direction)
+        private void OnCollisionEnter2D(Collision2D collision)
         {
-            _rigidbody.velocity = Speed * Time.deltaTime * direction;
+            for (int i = 0; i < _typesToIgnore.Length; i++)
+            {
+                if (!collision.gameObject.TryGetComponent(_typesToIgnore[i], out Component _))
+                {                                  
+                    Level.Pools.Destroy(gameObject);
+                   
+                    return;
+                }
+            }
         }
+        protected abstract void SetTypeToIgnore();
     }
 }

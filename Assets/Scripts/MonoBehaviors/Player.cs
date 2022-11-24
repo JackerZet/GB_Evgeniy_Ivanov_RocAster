@@ -1,18 +1,15 @@
+using Logic.Generic;
 using Logic.Interfaces;
 using Logic.Player;
+using ScriptableObjects;
 using UnityEngine;
 
 namespace BehaviorRealizations
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class Player : MonoBehaviour
+    public class Player : MonoBehaviour, IInitable
     {
-        [SerializeField] private float speed = 10f;
-        [SerializeField] private int maxHealth = 10;
-        [SerializeField] private int damage = 2;
-        [SerializeField] private Bullet bullet = null;
-
-        public IShooting Shooting => _shooting;
+        [SerializeField] private PlayerStats stats;
 
         private IMovable _managment;
         private IHealth _health;
@@ -20,24 +17,26 @@ namespace BehaviorRealizations
 
         public void Init()
         {
-            _managment = new PlayerManagment(GetComponent<Rigidbody2D>(), speed);
-            _health = new PlayerHealth(maxHealth);
+            _managment = new PlayerManagment(GetComponent<Rigidbody2D>(), stats.Speed);
+            _health = new PlayerHealth(stats.MaxHealth);
 
-            if (bullet != null)
-                _shooting = new PlayerShooting(damage, bullet);
+            if (stats.Bullet != null)
+            {
+                _shooting = new PlayerShooting(stats.Bullet, transform, Level.Pools);
+            }
         }
-        public void PlayerUpdate()
+        public void ObjectUpdate()
         {           
-            _managment.Move(Input.GetAxis(ConstData.Horizontal), Input.GetAxis(ConstData.Vertical), Time.deltaTime);
+            _managment.Move();
             _shooting.Shoot();
         }
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (collision.gameObject.TryGetComponent(out IHealthChanger healthChanger))
+            if (collision.gameObject.TryGetComponent(out IHasHealthChanger healthChanger))
             {
-                _health.ChangeHealth(healthChanger);
-                Debug.Log(_health.Health);
+                healthChanger.HealthChanger.CanChangeHealth(GetType(), _health);
                 
+                Debug.Log(_health.Health);
             }
         }
     }

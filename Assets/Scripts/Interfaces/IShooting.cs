@@ -1,8 +1,12 @@
-﻿namespace Logic.Interfaces
+﻿using BehaviorRealizations;
+using UnityEngine;
+
+namespace Logic.Interfaces
 {
-    public interface IShooting : IHealthChanger
+    public interface IShooting
     {
-        public IShootable Shootable { get; }
+        public Bullet Bullet { get; }
+        public Transform Barrel { get; }
         public void Shoot();
     }
 }
