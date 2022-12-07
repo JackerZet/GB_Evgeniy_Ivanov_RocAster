@@ -1,31 +1,45 @@
-using Logic.Generic;
 using Logic.Interfaces;
-using Logic.Player;
+using Logic.Players;
 using ScriptableObjects;
+using System;
 using UnityEngine;
 
 namespace BehaviorRealizations
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class Player : MonoBehaviour, IInitable
-    {
+    public class Player : MonoBehaviour, IUpdateable, IDisposable
+    {        
         [SerializeField] private PlayerStats stats;
 
+        #region Fields
         private IMovable _managment;
         private IHealth _health;
         private IShooting _shooting;
+        #endregion
 
-        public void Init()
+        #region MonoBehavior's methods
+        private void Awake()
         {
-            _managment = new PlayerManagment(GetComponent<Rigidbody2D>(), stats.Speed);
+            if (!stats)
+                stats = Resources.Load<PlayerStats>(Const.ScriptableObjectsPath + nameof(PlayerStats));
+            
+            _managment = new PlayerMoving(GetComponent<Rigidbody2D>(), stats.Speed);
             _health = new PlayerHealth(stats.MaxHealth);
 
             if (stats.Bullet != null)
             {
-                _shooting = new PlayerShooting(stats.Bullet, transform, Level.Pools);
+                _shooting = new PlayerShooting(stats.Bullet, transform);
             }
         }
-        public void ObjectUpdate()
+        #endregion
+
+        public void Dispose()
+        {
+            _managment = null;
+            _health = null;
+            _shooting = null;
+        }
+        public void OnUpdate()
         {           
             _managment.Move();
             _shooting.Shoot();
@@ -36,7 +50,7 @@ namespace BehaviorRealizations
             {
                 healthChanger.HealthChanger.CanChangeHealth(GetType(), _health);
                 
-                Debug.Log(_health.Health);
+                Debug.Log(nameof(Player) + _health.Health);
             }
         }
     }

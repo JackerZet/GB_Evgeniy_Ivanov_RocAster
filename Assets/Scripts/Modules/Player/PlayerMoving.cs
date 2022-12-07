@@ -1,19 +1,19 @@
 using Logic.Generic;
 using UnityEngine;
 
-namespace Logic.Player
+namespace Logic.Players
 {
-    public class PlayerManagment : Moving
+    public class PlayerMoving : Moving
     {   
         public Vector2 Direction { get; private set; }
 
         private const float Delay = 0.15f;
 
-        public PlayerManagment(Rigidbody2D rigidbody, float speed) : base(rigidbody, speed) { }
+        public PlayerMoving(Rigidbody2D rigidbody, float speed) : base(rigidbody, speed) { }
       
         public override void Move(Vector2 direction = new Vector2())
         {
-            direction = new Vector2(Input.GetAxis(GameData.Horizontal), Input.GetAxis(GameData.Vertical));
+            direction = new Vector2(Input.GetAxis(Const.Horizontal), Input.GetAxis(Const.Vertical));
             
             Direction = Vector2.Lerp(Direction, Speed * Time.deltaTime * direction, Delay);
 

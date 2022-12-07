@@ -9,14 +9,11 @@ namespace Logic.Generic
     {
         public Bullet Bullet { get; }
         public Transform Barrel { get; }
-        public IViewServices ViewServices { get; }
-
-        
-        public Shooting(Bullet bullet, Transform barrel, IViewServices viewServices)
+              
+        public Shooting(Bullet bullet, Transform barrel)
         {                     
             Bullet = bullet;
             Barrel = barrel;
-            ViewServices = viewServices;
         }
 
         public abstract void Shoot();

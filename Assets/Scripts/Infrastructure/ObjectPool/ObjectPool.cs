@@ -1,5 +1,4 @@
-﻿using Logic.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -40,7 +39,6 @@ namespace Logic.Infrastructure.ObjectPool
             obj.transform.SetParent(null);
             return obj;
         }
-
         public void Push(GameObject obj)
         {          
             obj.SetActive(false);
@@ -51,12 +49,10 @@ namespace Logic.Infrastructure.ObjectPool
         {
             var gameObject = UnityEngine.Object.Instantiate(_prefab);
 
-           if(gameObject.TryGetComponent(out IInitable initable))
-                initable.Init();
-
             gameObject.name = _prefab.name;
             return gameObject;
         }
+        
         public void Dispose()
         {
             while(_objects.Count > 0)

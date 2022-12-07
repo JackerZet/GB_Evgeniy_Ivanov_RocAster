@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f69fd75e4f728f44b8d431fd6d49792, type: 3}
+  m_Name: PrefabsForLevel
+  m_EditorClassIdentifier: 
+  <Player>k__BackingField: {fileID: 5351631038684382117, guid: 1a78754b6f23f444b8a90dd974571d29, type: 3}
+  <Bullets>k__BackingField:
+  - {fileID: -3284356411646848361, guid: 22fb1aa3a24cce24a8fa759e493ff99d, type: 3}
+  - {fileID: -7068613728318550593, guid: b94e8b0fb1c239541aa7f9b2e16ca800, type: 3}
+  <Asteroids>k__BackingField:
+  - {fileID: 5239773600349440997, guid: 695865bf6e4d3c342ad3416bce7c98fb, type: 3}
+  <UFOs>k__BackingField:
+  - {fileID: 5400051576034936009, guid: 46e58a02962ef8f4dbe25c47da113118, type: 3}

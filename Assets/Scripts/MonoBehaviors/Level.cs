@@ -1,6 +1,7 @@
-using Logic.Infrastructure;
+using Logic.Game;
 using Logic.Infrastructure.FactoryMethod;
-using Logic.Infrastructure.ObjectPool;
+using Logic.Infrastructure.ServiceLocator;
+using ScriptableObjects;
 using UnityEngine;
 
 namespace BehaviorRealizations
@@ -8,62 +9,38 @@ namespace BehaviorRealizations
     public sealed class Level : MonoBehaviour
     {
         #region Links
-        [SerializeField] private Player playerPrefab;
-        [SerializeField] private Bullet[] bulletPrefabs;
-        [SerializeField] private Enemy[] enemyPrefabs;
+        [SerializeField] private Prefabs prefabs;
         #endregion
 
         #region Fields
-        private static IViewServices _viewServices;
+        private static readonly ServiceLocator _serviceLocator = new();
 
-        private readonly ICreator _creator = new GeneralCreator();
-        
-        private Player _player;
-        private Enemy[] _enemies;
+        private readonly GameData _gameData = new();     
         #endregion
 
         #region Properties
-        public static IViewServices Pools => _viewServices;
+        public static ServiceLocator ServiceLocator => _serviceLocator;
         #endregion
 
         #region MonoBehavior's methods
-        private void OnEnable()
-        {
-            CreatePools();
-
-            CreatePlayer();
-
-            CreateObjects();
+        private void Awake()
+        {                                  
+            new GameInitializer(prefabs, _gameData);
         }
         private void Update()
         {
-            _player.ObjectUpdate();
+            _gameData.player.OnUpdate();
 
-            for(int i = 0; i < _enemies.Length; i++)   
-                _enemies[i].ObjectUpdate();           
+            for(int i = 0; i < _gameData.enemies.Length; i++)
+                _gameData.enemies[i].OnUpdate();           
         }
-        #endregion
-
-        #region Functionality
-        private void CreatePools()
+        private void LateUpdate()
         {
-            GameObject[] gameObjects = new GameObject[bulletPrefabs.Length];
-
-            for (int i = 0; i < bulletPrefabs.Length; i++)
-                gameObjects[i] = bulletPrefabs[i].gameObject;
-
-            _viewServices = new ObjectPoolsView(gameObjects);
+            _gameData.cameraController.Follow();
         }
-        private void CreatePlayer()
+        private void OnDisable()
         {
-            _player = _creator.FactoryMethod(playerPrefab);
-        }
-        private void CreateObjects()
-        {           
-            _enemies = new Enemy[enemyPrefabs.Length];
-
-            for(int i = 0; i < enemyPrefabs.Length; i++)
-                _enemies[i] = _creator.FactoryMethod(enemyPrefabs[i]);           
+            _gameData.spawner.Dispose();
         }
         #endregion
     }

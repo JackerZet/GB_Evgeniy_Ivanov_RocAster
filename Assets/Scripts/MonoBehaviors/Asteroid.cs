@@ -8,11 +8,14 @@ namespace BehaviorRealizations
     {
         [SerializeField] private AsteroidStats stats;
 
-        public override void Init()
-        {
+        public override void Awake()
+        {      
+            if (!stats)
+                stats = Resources.Load<AsteroidStats>(Const.ScriptableObjectsPath + nameof(AsteroidStats));
+
             _hitting = new Hitting(stats.Damage);
         }
 
-        public override void ObjectUpdate() { }
+        public override void OnUpdate() { }
     }
 }
