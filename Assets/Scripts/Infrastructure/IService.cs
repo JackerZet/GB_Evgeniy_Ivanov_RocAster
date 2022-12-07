@@ -2,7 +2,7 @@
 
 namespace Logic.Infrastructure
 {
-    public interface IViewServices
+    public interface IService
     {
         T Instantiate<T>(GameObject gameObject);
         void Destroy(GameObject gameObject);

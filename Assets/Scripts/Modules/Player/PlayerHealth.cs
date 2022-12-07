@@ -1,21 +1,12 @@
+using Logic.Generic;
 using Logic.Interfaces;
 
-namespace Logic.Player
+namespace Logic.Players
 {
-    public class PlayerHealth : IHealth
+    public class PlayerHealth : HealthBase
     {
-        public int MaxHealth { get; }
-        public int Health { get; private set; }
-        
-        public PlayerHealth(int maxHealth)
+        public PlayerHealth(int maxHealth) : base(maxHealth)
         {
-            MaxHealth = maxHealth;
-            Health = maxHealth;
         }
-
-        public void ChangeHealth(IHealthChanger healthChanger)
-        {
-            Health -= healthChanger.DeltaHealth;
-        }
-    }  
+    }
 }

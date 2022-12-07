@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 
-public static class GameData
+public static class Const
 {
     public const string Horizontal = nameof(Horizontal);
     public const string Vertical = nameof(Vertical);
+
+    public const string ScriptableObjectsPath = "SO/";
     public static class Keys
     {
         public static readonly KeyCode shoot = KeyCode.Mouse0;

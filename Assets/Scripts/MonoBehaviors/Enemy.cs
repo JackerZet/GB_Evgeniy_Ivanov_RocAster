@@ -3,12 +3,12 @@ using UnityEngine;
 
 namespace BehaviorRealizations
 {
-    public abstract class Enemy : MonoBehaviour, IHasHealthChanger, IInitable
+    public abstract class Enemy : MonoBehaviour, IHasHealthChanger, IUpdateable
     {
         protected IHealthChanger _hitting;
         public IHealthChanger HealthChanger => _hitting;
-        
-        public abstract void Init();
-        public abstract void ObjectUpdate();
+
+        public abstract void Awake();
+        public abstract void OnUpdate();
     }
 }

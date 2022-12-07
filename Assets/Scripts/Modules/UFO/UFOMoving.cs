@@ -18,7 +18,7 @@ namespace Logic.Enemies.UFO
             if (_enumeratorForAction.CanDo())
             {
                 var random = new System.Random();
-                direction = GameData.directions[random.Next(0, 3)];
+                direction = Const.directions[random.Next(0, 3)];
            
                 Rigidbody.velocity = Speed * Time.deltaTime * direction; 
             }

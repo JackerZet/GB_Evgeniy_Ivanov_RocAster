@@ -6,7 +6,7 @@ namespace Logic.Infrastructure.FactoryMethod
 {
     public interface ICreator
     {
-        T FactoryMethod<T>(T gameObject) where T : MonoBehaviour, IInitable;
+        T FactoryMethod<T>(T gameObject) where T : MonoBehaviour;
 
     }
 }

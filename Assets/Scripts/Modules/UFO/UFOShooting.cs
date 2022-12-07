@@ -1,6 +1,6 @@
 ﻿using BehaviorRealizations;
 using Logic.Generic;
-using Logic.Infrastructure;
+using Logic.Infrastructure.ObjectPool;
 using UnityEngine;
 namespace Logic.Enemies.UFO
 {
@@ -10,7 +10,7 @@ namespace Logic.Enemies.UFO
         private readonly Enumerator _enumerator;
 
         private const float timeoutShoot = 1f;
-        public UFOShooting(Bullet bullet, Transform barrel, IViewServices viewServices, Transform target) : base(bullet, barrel, viewServices)
+        public UFOShooting(Bullet bullet, Transform barrel, Transform target) : base(bullet, barrel)
         {
             _target = target;
             _enumerator = new Enumerator(timeoutShoot);
@@ -67,7 +67,7 @@ namespace Logic.Enemies.UFO
         }
         private void Impulse(Vector2 direction)
         {
-            var bullet = ViewServices.Instantiate<Bullet>(Bullet.gameObject);
+            var bullet = Level.ServiceLocator[typeof(ObjectPoolsView)].Instantiate<Bullet>(Bullet.gameObject);
 
             bullet.transform.position = (Vector2)Barrel.position + direction;
 

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Logic.Infrastructure.ObjectPool
 {
-    public class ObjectPoolsView : IViewServices
+    public class ObjectPoolsView : IService
     {
         private readonly Dictionary<string, ObjectPool> _pools = new();
 

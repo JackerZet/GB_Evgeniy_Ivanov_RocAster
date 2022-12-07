@@ -25,7 +25,7 @@ RenderSettings:
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 3
-  m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
+  m_SubtractiveShadowColor: {r: 0.57938766, g: 0.6398244, b: 0.7924528, a: 1}
   m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 397c965e43aca6e4ba49d4ffca9649ca, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -152,13 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d88f9eab63c2114ba77f089557fb794, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 5351631038684382117, guid: 1a78754b6f23f444b8a90dd974571d29, type: 3}
-  bulletPrefabs:
-  - {fileID: -7068613728318550593, guid: b94e8b0fb1c239541aa7f9b2e16ca800, type: 3}
-  - {fileID: -3284356411646848361, guid: 22fb1aa3a24cce24a8fa759e493ff99d, type: 3}
-  enemyPrefabs:
-  - {fileID: 5239773600349440997, guid: 695865bf6e4d3c342ad3416bce7c98fb, type: 3}
-  - {fileID: 5400051576034936009, guid: 46e58a02962ef8f4dbe25c47da113118, type: 3}
+  prefabs: {fileID: 11400000, guid: 2eae622cec805c048b627b8826b0aaee, type: 2}
 --- !u!4 &328377455
 Transform:
   m_ObjectHideFlags: 0
@@ -186,6 +180,7 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -292,6 +287,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d66f6d22e75b3447b27104b47571c60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
